@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>idb.js Vanilla Test</title>
+</head>
+<body>
+  <h1>idb.js Vanilla Test</h1>
+  <p>
+    This page tests the <code>idb.js</code> vanilla library.  
+    Open DevTools (F12) to see console logs.
+  </p>
+
+  <pre id="out"></pre>
+
+  <script src="./idb.js"></script>
+  <script>
+    async function log(...args){ 
+      const out = document.getElementById('out');
+      out.textContent += args.map(a => typeof a==='string'?a:JSON.stringify(a,null,2)).join(' ') + "\n";
+      console.log(...args);
+    }
+
+    (async function run() {
+      try {
+        // Optional: override rates URL for testing
+        // idb.setRatesUrl('https://raw.githubusercontent.com/.../rates.json');
+
+        const db = await idb.openCostsDB('costsdb', 1);
+        await log('DB opened.');
+
+        const r1 = await db.addCost({ sum: 200, currency: 'USD', category: 'FOOD', description: 'pizza' });
+        await log('Added 1:', r1);
+        const r2 = await db.addCost({ sum: 400, currency: 'USD', category: 'CAR', description: 'fuel' });
+        await log('Added 2:', r2);
+
+        // Demonstrate month/year filtering + conversion to USD
+        const now = new Date();
+        const report = await db.getReport(now.getFullYear(), now.getMonth()+1, 'USD');
+        await log('Report:', report);
+      } catch (e) {
+        console.error(e);
+        await log('Error:', String(e && e.message || e));
+      }
+    })();
+  </script>
+</body>
+</html>

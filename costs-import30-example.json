@@ -1,0 +1,400 @@
+{
+  "costs": [
+    {
+      "sum": 45,
+      "currency": "USD",
+      "category": "Groceries",
+      "description": "Fresh vegetables",
+      "Date": {
+        "year": 2025,
+        "month": 1,
+        "day": 3
+      },
+      "dateISO": "2025-01-03T08:02:10.000Z",
+      "id": 1
+    },
+    {
+      "sum": 129,
+      "currency": "ILS",
+      "category": "Electronics",
+      "description": "USB-C hub",
+      "Date": {
+        "year": 2025,
+        "month": 1,
+        "day": 12
+      },
+      "dateISO": "2025-01-12T08:05:22.000Z",
+      "id": 2
+    },
+    {
+      "sum": 18,
+      "currency": "GBP",
+      "category": "Food",
+      "description": "Falafel pita",
+      "Date": {
+        "year": 2025,
+        "month": 1,
+        "day": 21
+      },
+      "dateISO": "2025-01-21T08:12:45.000Z",
+      "id": 3
+    },
+    {
+      "sum": 75,
+      "currency": "EURO",
+      "category": "Transportation",
+      "description": "Monthly bus pass",
+      "Date": {
+        "year": 2025,
+        "month": 1,
+        "day": 30
+      },
+      "dateISO": "2025-01-30T08:20:30.000Z",
+      "id": 4
+    },
+    {
+      "sum": 399,
+      "currency": "ILS",
+      "category": "Household",
+      "description": "Water filter pitcher",
+      "Date": {
+        "year": 2025,
+        "month": 2,
+        "day": 8
+      },
+      "dateISO": "2025-02-08T08:33:10.000Z",
+      "id": 5
+    },
+    {
+      "sum": 12,
+      "currency": "USD",
+      "category": "Coffee",
+      "description": "Latte",
+      "Date": {
+        "year": 2025,
+        "month": 2,
+        "day": 17
+      },
+      "dateISO": "2025-02-17T09:01:05.000Z",
+      "id": 6
+    },
+    {
+      "sum": 220,
+      "currency": "USD",
+      "category": "Clothing",
+      "description": "Jeans",
+      "Date": {
+        "year": 2025,
+        "month": 2,
+        "day": 26
+      },
+      "dateISO": "2025-02-26T09:15:40.000Z",
+      "id": 7
+    },
+    {
+      "sum": 95,
+      "currency": "GBP",
+      "category": "Dining",
+      "description": "Family lunch",
+      "Date": {
+        "year": 2025,
+        "month": 3,
+        "day": 7
+      },
+      "dateISO": "2025-03-07T09:45:12.000Z",
+      "id": 8
+    },
+    {
+      "sum": 520,
+      "currency": "ILS",
+      "category": "Pets",
+      "description": "Dog food (Pomeranian)",
+      "Date": {
+        "year": 2025,
+        "month": 3,
+        "day": 16
+      },
+      "dateISO": "2025-03-16T10:05:00.000Z",
+      "id": 9
+    },
+    {
+      "sum": 33,
+      "currency": "EURO",
+      "category": "Entertainment",
+      "description": "Movie tickets",
+      "Date": {
+        "year": 2025,
+        "month": 3,
+        "day": 25
+      },
+      "dateISO": "2025-03-25T10:25:33.000Z",
+      "id": 10
+    },
+    {
+      "sum": 59,
+      "currency": "USD",
+      "category": "Subscription",
+      "description": "Music streaming",
+      "Date": {
+        "year": 2025,
+        "month": 4,
+        "day": 3
+      },
+      "dateISO": "2025-04-03T11:00:00.000Z",
+      "id": 11
+    },
+    {
+      "sum": 149,
+      "currency": "ILS",
+      "category": "Kids",
+      "description": "School supplies",
+      "Date": {
+        "year": 2025,
+        "month": 4,
+        "day": 12
+      },
+      "dateISO": "2025-04-12T11:20:20.000Z",
+      "id": 12
+    },
+    {
+      "sum": 310,
+      "currency": "USD",
+      "category": "Travel",
+      "description": "Domestic flight",
+      "Date": {
+        "year": 2025,
+        "month": 4,
+        "day": 21
+      },
+      "dateISO": "2025-04-21T12:10:10.000Z",
+      "id": 13
+    },
+    {
+      "sum": 88,
+      "currency": "GBP",
+      "category": "Beauty",
+      "description": "Skincare set",
+      "Date": {
+        "year": 2025,
+        "month": 4,
+        "day": 30
+      },
+      "dateISO": "2025-04-30T12:45:55.000Z",
+      "id": 14
+    },
+    {
+      "sum": 270,
+      "currency": "ILS",
+      "category": "Tools",
+      "description": "Power drill",
+      "Date": {
+        "year": 2025,
+        "month": 5,
+        "day": 9
+      },
+      "dateISO": "2025-05-09T13:30:00.000Z",
+      "id": 15
+    },
+    {
+      "sum": 22,
+      "currency": "USD",
+      "category": "Food",
+      "description": "Chocolate bars multipack",
+      "Date": {
+        "year": 2025,
+        "month": 5,
+        "day": 18
+      },
+      "dateISO": "2025-05-18T09:05:00.000Z",
+      "id": 16
+    },
+    {
+      "sum": 740,
+      "currency": "ILS",
+      "category": "Household",
+      "description": "Supermarket groceries",
+      "Date": {
+        "year": 2025,
+        "month": 5,
+        "day": 27
+      },
+      "dateISO": "2025-05-27T09:20:10.000Z",
+      "id": 17
+    },
+    {
+      "sum": 199,
+      "currency": "GBP",
+      "category": "Electronics",
+      "description": "Bluetooth headphones",
+      "Date": {
+        "year": 2025,
+        "month": 6,
+        "day": 5
+      },
+      "dateISO": "2025-06-05T09:35:20.000Z",
+      "id": 18
+    },
+    {
+      "sum": 60,
+      "currency": "EURO",
+      "category": "Education",
+      "description": "Textbook: Calculus II",
+      "Date": {
+        "year": 2025,
+        "month": 6,
+        "day": 14
+      },
+      "dateISO": "2025-06-14T10:00:00.000Z",
+      "id": 19
+    },
+    {
+      "sum": 49,
+      "currency": "USD",
+      "category": "Health",
+      "description": "Vitamins",
+      "Date": {
+        "year": 2025,
+        "month": 6,
+        "day": 23
+      },
+      "dateISO": "2025-06-23T10:15:40.000Z",
+      "id": 20
+    },
+    {
+      "sum": 85,
+      "currency": "GBP",
+      "category": "Gifts",
+      "description": "Birthday present",
+      "Date": {
+        "year": 2025,
+        "month": 7,
+        "day": 2
+      },
+      "dateISO": "2025-07-02T10:30:55.000Z",
+      "id": 21
+    },
+    {
+      "sum": 1200,
+      "currency": "ILS",
+      "category": "Utilities",
+      "description": "Electricity bill",
+      "Date": {
+        "year": 2025,
+        "month": 7,
+        "day": 11
+      },
+      "dateISO": "2025-07-11T11:00:00.000Z",
+      "id": 22
+    },
+    {
+      "sum": 17,
+      "currency": "EURO",
+      "category": "Coffee",
+      "description": "Cappuccino and croissant",
+      "Date": {
+        "year": 2025,
+        "month": 7,
+        "day": 20
+      },
+      "dateISO": "2025-07-20T11:10:10.000Z",
+      "id": 23
+    },
+    {
+      "sum": 35,
+      "currency": "USD",
+      "category": "Parking",
+      "description": "Airport parking",
+      "Date": {
+        "year": 2025,
+        "month": 7,
+        "day": 29
+      },
+      "dateISO": "2025-07-29T11:25:25.000Z",
+      "id": 24
+    },
+    {
+      "sum": 420,
+      "currency": "ILS",
+      "category": "Fuel",
+      "description": "Gasoline",
+      "Date": {
+        "year": 2025,
+        "month": 8,
+        "day": 7
+      },
+      "dateISO": "2025-08-07T11:40:40.000Z",
+      "id": 25
+    },
+    {
+      "sum": 72,
+      "currency": "EURO",
+      "category": "Internet",
+      "description": "Home internet bill",
+      "Date": {
+        "year": 2025,
+        "month": 8,
+        "day": 16
+      },
+      "dateISO": "2025-08-16T12:05:05.000Z",
+      "id": 26
+    },
+    {
+      "sum": 28,
+      "currency": "GBP",
+      "category": "Mobile",
+      "description": "Prepaid top-up",
+      "Date": {
+        "year": 2025,
+        "month": 8,
+        "day": 25
+      },
+      "dateISO": "2025-08-25T12:25:15.000Z",
+      "id": 27
+    },
+    {
+      "sum": 15,
+      "currency": "USD",
+      "category": "Apps",
+      "description": "Pro note-taking app",
+      "Date": {
+        "year": 2025,
+        "month": 9,
+        "day": 3
+      },
+      "dateISO": "2025-09-03T12:45:45.000Z",
+      "id": 28
+    },
+    {
+      "sum": 350,
+      "currency": "ILS",
+      "category": "Entertainment",
+      "description": "Concert tickets",
+      "Date": {
+        "year": 2025,
+        "month": 9,
+        "day": 12
+      },
+      "dateISO": "2025-09-12T13:10:00.000Z",
+      "id": 29
+    },
+    {
+      "sum": 640,
+      "currency": "USD",
+      "category": "Travel",
+      "description": "Hotel booking deposit",
+      "Date": {
+        "year": 2025,
+        "month": 9,
+        "day": 15
+      },
+      "dateISO": "2025-09-15T13:30:30.000Z",
+      "id": 30
+    }
+  ],
+  "rates": {
+    "USD": 1,
+    "ILS": 3.4,
+    "GBP": 1.8,
+    "EURO": 0.7
+  }
+}
