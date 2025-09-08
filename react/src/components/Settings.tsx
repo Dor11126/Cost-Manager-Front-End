@@ -226,7 +226,7 @@ export default function Settings({ onRatesSaved, onImported }: Props) {
       {/* Info about rates policy */}
       <Typography variant="body2">
         Default URL: <code>{DEFAULT_RATES_URL}</code><br/>
-        On a new session the app fetches rates from the current URL (no LocalStorage fallback). Switch to “Inline JSON” to use manual rates.
+        Each new session loads rates from the default URL. Override with a custom URL, or use Inline JSON for manual rates.
       </Typography>
     </Paper>
   );
