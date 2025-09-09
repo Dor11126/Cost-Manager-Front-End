@@ -1,10 +1,12 @@
-# Cost Manager Front-End — README
+# Cost Manager Front-End
 
 **Developers**  
 Dor Cohen, Maor Levin
 
 ## Overview
 **Cost Manager** is a front‑end web application built with **React + TypeScript** and **Material UI (MUI)** for recording expenses, producing monthly reports, and visualizing totals with charts (Recharts). Data is stored locally in the browser via **IndexedDB**, accessed through a custom `idb` helper library. Exchange rates are **fetched from a server API** and can also be **entered manually** from *Settings* when needed.
+
+The app is deployed at:https://frontend-course-maorlevin-dorcohen.netlify.app/
 
 This project helps users track expenses, create monthly reports, and visualize spending with charts, supporting multiple currencies and live exchange rates:
 1. **Add cost items** — amount, currency, category, description (date is set automatically on insert).
