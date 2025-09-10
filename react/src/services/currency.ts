@@ -1,8 +1,9 @@
+/** Exchange-rate service: fetch default URL on session start; convert amounts; allow custom URL or Inline JSON. */
 import type { Rates, Currency } from '../types';
 
 /**
  * DEFAULT: always fetch from this URL on every new session (unless the user explicitly
- * switches to 'inline JSON' in Settings). No fallback to local cache or sample file.
+ * switches to 'inline JSON' in Settings)
  */
 export const DEFAULT_RATES_URL =
   'https://raw.githubusercontent.com/Dor11126/Cost-Manager-Front-End-exchange-rates/main/rates.json';
@@ -90,7 +91,7 @@ async function applyRatesToIdb(rates: Rates): Promise<void> {
  * Initialize rates on app start.
  * Policy:
  * - If source = 'inline-json': use the stored inline JSON (user override), do not fetch.
- * - Else (default): always fetch from URL (default is GitHub raw), ignoring any local cache.
+ * - Else (default): always fetch from URL (default is GitHub raw)
  */
 export async function initCurrencyRates(): Promise<void> {
   const source = getRatesSource();

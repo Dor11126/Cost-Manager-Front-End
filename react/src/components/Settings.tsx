@@ -1,3 +1,4 @@
+/** Settings: choose rates source (default/custom URL or Inline JSON) and import/export data. */
 import { useEffect, useRef, useState } from 'react';
 // MUI imports for layout and controls
 import {

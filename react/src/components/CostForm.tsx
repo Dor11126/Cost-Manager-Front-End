@@ -1,3 +1,4 @@
+/** Controlled form to add a new cost item into IndexedDB. */
 import { useState } from 'react';
 // MUI imports for form layout
 import { Box, TextField, MenuItem, Button, Stack, Paper } from '@mui/material';

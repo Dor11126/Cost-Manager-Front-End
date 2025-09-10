@@ -1,3 +1,4 @@
+/** App bootstrap: mounts React root, wraps ThemeProvider, initializes currency rates. */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 // MUI theme and baseline

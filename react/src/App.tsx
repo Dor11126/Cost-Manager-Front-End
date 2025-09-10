@@ -1,3 +1,4 @@
+//Application shell — top app bar + tabbed navigation (Form, Report, Pie, Bar, Settings)
 import { useEffect, useMemo, useState } from 'react';
 // MUI components for layout and controls
 import { AppBar, Toolbar, Typography, Container, Tabs, Tab, FormControl, InputLabel, Select, MenuItem, Stack, Snackbar, Alert } from '@mui/material';

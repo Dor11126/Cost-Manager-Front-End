@@ -1,3 +1,4 @@
+/** Bar chart for yearly totals per month. */
 import { useEffect, useState } from 'react';
 // MUI and Recharts imports for chart rendering
 import { Paper, Typography } from '@mui/material';

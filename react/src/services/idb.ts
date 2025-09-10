@@ -1,3 +1,7 @@
+//  IndexedDB wrapper for the React app: addCost, monthly report, chart helpers.
+//  DB name: "costsDB"
+//  We convert sums to the target currency at read time using session rates.
+
 import { convert, getCachedSessionRates, setInlineRates, normalizeRates } from './currency';
 import type { Report as UiReport, Currency, Rates } from '../types';
 

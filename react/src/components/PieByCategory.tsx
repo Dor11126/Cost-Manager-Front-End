@@ -1,3 +1,4 @@
+/** Pie chart for monthly totals by category. */
 import { useEffect, useMemo, useState } from 'react';
 // MUI and Recharts imports for pie chart
 import { Paper, Typography } from '@mui/material';

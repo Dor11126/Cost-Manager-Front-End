@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-// Create MUI theme with custom palette, typography, and shape
+// MUI theme with custom palette, typography, and shape
 const theme = createTheme({
   palette: {
     mode: 'light',

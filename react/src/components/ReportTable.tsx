@@ -1,3 +1,4 @@
+/** Monthly report table with rows and a bottom Total in the selected currency. */
 import React, { useEffect, useMemo, useState } from "react";
 // MUI imports for table and layout
 import {

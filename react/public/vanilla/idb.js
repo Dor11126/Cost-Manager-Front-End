@@ -1,110 +1,118 @@
+/* public/vanilla/idb.js — vanilla */
 (function (global) {
   'use strict';
 
-  // Default exchange rates URL (always fetched unless overridden)
-  var DEFAULT_RATES_URL = 'https://raw.githubusercontent.com/Dor11126/Cost-Manager-Front-End-exchange-rates/main/rates.json';
+  /** Default exchange rates URL (fetched on every new session unless overridden) */
+  const DEFAULT_RATES_URL =
+      'https://raw.githubusercontent.com/Dor11126/Cost-Manager-Front-End-exchange-rates/main/rates.json';
 
   // ----- in-memory session state -----
-  var _ratesUrl = DEFAULT_RATES_URL;
-  var _inlineRates = null; // when provided, overrides URL
-  var _currentRates = null;
+  let _ratesUrl = DEFAULT_RATES_URL;
+  let _inlineRates = null;   // when provided, overrides URL fetch
+  let _currentRates = null;  // last loaded/inline rates
 
-  // Set the rates URL and clear cached rates
+  /** Set the rates URL and clear cached rates */
   function setRatesUrl(url) {
     _ratesUrl = (url && String(url).trim()) || DEFAULT_RATES_URL;
     _currentRates = null; // force refetch on next need
   }
-  // Set inline rates (manual mode) and apply immediately
+
+  /** Set inline (manual) rates and apply immediately */
   function setInlineRates(rates) {
     _inlineRates = normalizeRates(rates);
     _currentRates = _inlineRates;
   }
-  // Get current rates in memory
+
+  /** Get current rates in memory (diagnostics) */
   function getCurrentRates() { return _currentRates; }
 
-  // Validate and normalize rates object
+  /** Validate and normalize a rates object */
   function normalizeRates(obj) {
-    var out = {};
-    ['USD','GBP','EURO','ILS'].forEach(function(k){
-      var v = Number(obj && obj[k]);
-      if (!isFinite(v) || v <= 0) throw new Error('Invalid rate for ' + k);
+    const out = {};
+    ['USD', 'GBP', 'EURO', 'ILS'].forEach(function (k) {
+      const v = Number(obj && obj[k]);
+      if (!isFinite(v) || v <= 0) { throw new Error('Invalid rate for ' + k); }
       out[k] = v;
     });
     return out;
   }
 
-  // Fetch rates from URL with cache-busting
+  /** Fetch rates from URL with cache-busting */
   function fetchRatesFrom(url) {
-    var u = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_=' + Date.now();
+    const u = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_=' + Date.now();
     return fetch(u, { mode: 'cors', cache: 'no-store' })
-      .then(function(res){
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
-      })
-      .then(normalizeRates);
+        .then(function (res) {
+          if (!res.ok) { throw new Error('HTTP ' + res.status); }
+          return res.json();
+        })
+        .then(normalizeRates);
   }
 
-  // Ensure rates are loaded (inline or fetch from URL)
+  /** Ensure rates are loaded (inline wins; otherwise fetch default/custom URL) */
   function ensureRates() {
     if (_inlineRates) {
       _currentRates = _inlineRates;
       return Promise.resolve(_currentRates);
     }
-    if (_currentRates) return Promise.resolve(_currentRates);
-    return fetchRatesFrom(_ratesUrl).then(function(r){
+    if (_currentRates) { return Promise.resolve(_currentRates); }
+    return fetchRatesFrom(_ratesUrl).then(function (r) {
       _currentRates = r;
       return r;
     });
   }
 
-  // Currency conversion using loaded rates
+  /** Currency conversion using loaded rates */
   function convert(amount, from, to, rates) {
-    var r = rates || _currentRates;
-    if (!r) throw new Error('Rates are not loaded.');
-    var rf = r[from]; var rt = r[to];
-    if (!rf || !rt) throw new Error('Missing rate for conversion.');
+    const r = rates || _currentRates;
+    if (!r) { throw new Error('Rates are not loaded.'); }
+    const rf = r[from];
+    const rt = r[to];
+    if (!rf || !rt) { throw new Error('Missing rate for conversion.'); }
     return (Number(amount) || 0) / rf * rt;
   }
 
-  // Open IndexedDB and create stores if needed
+  /** Open IndexedDB and create stores if needed */
   function openCostsDB(dbName, dbVersion) {
-    return new Promise(function(resolve, reject){
-      var req = indexedDB.open(dbName, dbVersion);
-      req.onupgradeneeded = function(e){
-        var db = req.result;
+    return new Promise(function (resolve, reject) {
+      const req = indexedDB.open(dbName, dbVersion);
+      req.onupgradeneeded = function () {
+        const db = req.result;
         if (!db.objectStoreNames.contains('costs')) {
-          var st = db.createObjectStore('costs', { keyPath: 'id', autoIncrement: true });
+          const st = db.createObjectStore('costs', { keyPath: 'id', autoIncrement: true });
           st.createIndex('byDate', 'dateISO', { unique: false });
         }
         if (!db.objectStoreNames.contains('meta')) {
           db.createObjectStore('meta', { keyPath: 'key' });
         }
       };
-      req.onsuccess = function(){ resolve(createWrapper(req.result)); };
-      req.onerror = function(){ reject(req.error); };
+      req.onsuccess = function () { resolve(createWrapper(req.result)); };
+      req.onerror = function () { reject(req.error); };
     });
   }
 
-  // Create DB wrapper with addCost and getReport methods
+  /** Create DB wrapper with addCost and getReport methods */
   function createWrapper(db) {
-    // Add a cost record to DB
+    /** Add a cost record to DB (tolerates `curency` typo from tester) */
     function addCost(cost) {
-      var c = Object.assign({}, cost || {});
-      // tolerate 'curency' typo from the sample tester
-      if (c.curency && !c.currency) c.currency = c.curency;
+      const c = Object.assign({}, cost || {});
+      if (c.curency && !c.currency) { c.currency = c.curency; } // support tester typo
+
       // validate
-      var sum = Number(c.sum);
-      var currency = String(c.currency || '').toUpperCase();
-      var category = String(c.category || '');
-      var description = String(c.description || '');
-      if (!isFinite(sum)) return Promise.reject(new Error('sum must be a number'));
-      if (!currency) return Promise.reject(new Error('currency required'));
+      const sum = Number(c.sum);
+      const currency = String(c.currency || '').toUpperCase();
+      const category = String(c.category || '');
+      const description = String(c.description || '');
+
+      if (!isFinite(sum)) { return Promise.reject(new Error('sum must be a number')); }
+      if (currency === '') { return Promise.reject(new Error('currency required')); }
+
       // stamp date (today, in local time)
-      var now = new Date();
-      var year = now.getFullYear();
-      var month = now.getMonth() + 1;
-      var day = now.getDate();
-      var rec = {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      const day = now.getDate();
+
+      const rec = {
         sum: sum,
         currency: currency,
         category: category,
@@ -112,32 +120,36 @@
         Date: { year: year, month: month, day: day },
         dateISO: now.toISOString()
       };
-      return new Promise(function(resolve, reject){
-        var tx = db.transaction('costs', 'readwrite');
-        var st = tx.objectStore('costs');
-        var req = st.add(rec);
-        tx.oncomplete = function(){ rec.id = req.result; resolve(rec); };
-        tx.onerror = function(){ reject(tx.error || req.error); };
+
+      return new Promise(function (resolve, reject) {
+        const tx = db.transaction('costs', 'readwrite');
+        const st = tx.objectStore('costs');
+        const rq = st.add(rec);
+        tx.oncomplete = function () { rec.id = rq.result; resolve(rec); };
+        tx.onerror = function () { reject(tx.error || rq.error); };
       });
     }
 
-    // Get report for a given year/month/currency
+    /** Get report for a given year/month in target currency */
     function getReport(year, month, currency) {
-      var y = Number(year), m = Number(month);
-      var targetCur = String(currency || 'USD').toUpperCase();
-      if (!y || !m) return Promise.reject(new Error('year/month required'));
+      const y = Number(year);
+      const m = Number(month);
+      const targetCur = String(currency || 'USD').toUpperCase();
+      if (!y || !m) { return Promise.reject(new Error('year/month required')); }
 
-      return ensureRates().then(function(rates){
-        return new Promise(function(resolve, reject){
-          var tx = db.transaction('costs', 'readonly');
-          var st = tx.objectStore('costs');
-          var req = st.getAll();
-          req.onsuccess = function(){
-            var all = req.result || [];
-            var costs = [];
-            var total = 0;
-            for (var i=0;i<all.length;i++){
-              var it = all[i];
+      return ensureRates().then(function (rates) {
+        return new Promise(function (resolve, reject) {
+          const tx = db.transaction('costs', 'readonly');
+          const st = tx.objectStore('costs');
+          const rq = st.getAll();
+
+          rq.onsuccess = function () {
+            const all = rq.result || [];
+            const costs = [];
+            let total = 0;
+
+            for (let i = 0; i < all.length; i += 1) {
+              const it = all[i];
               if (it && it.Date && it.Date.year === y && it.Date.month === m) {
                 costs.push({
                   sum: it.sum,
@@ -149,6 +161,7 @@
                 total += convert(it.sum, it.currency, targetCur, rates);
               }
             }
+
             total = Math.round(total * 100) / 100;
             resolve({
               year: y,
@@ -157,31 +170,32 @@
               total: { currency: targetCur, total: total }
             });
           };
-          req.onerror = function(){ reject(req.error); };
+
+          rq.onerror = function () { reject(rq.error); };
         });
       });
     }
 
-    // Return public DB API
+    // Public wrapper API
     return {
       addCost: addCost,
       getReport: getReport
     };
   }
 
-  // Force refresh rates from URL (used in Settings)
+  /** Force refresh rates from URL (used e.g. by Settings) */
   function refreshRatesFromUrl() {
     _currentRates = null;
     return ensureRates();
   }
 
-  // Expose global API
+  // Expose global API (required by the tester HTML)
   global.idb = {
     openCostsDB: openCostsDB,
     setRatesUrl: setRatesUrl,
     setInlineRates: setInlineRates,
     refreshRatesFromUrl: refreshRatesFromUrl,
-    // for diagnostics
+    // diagnostics (optional)
     _getCurrentRates: getCurrentRates
   };
 })(this);
